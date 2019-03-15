@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <title>Mobiscroll_2.17.1</title>
+        <!--  这3个必须要引进去 -->
+            <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+            <script src="js/mobiscroll.custom.min.js"></script>
+            <link href="css/mobiscroll.custom.min.css" rel="stylesheet" type="text/css" />
+        <!--  -->
+        <style>
+        /* 这个可以删除,开始结束input的样式*/
+            .section {
+            	position: relative;
+            	height: 32px;
+            	padding-left: 80px;
+            	padding-right: 15px;
+            	margin-bottom: 10px;
+            	box-sizing: border-box;
+            }
+            .section label {
+            	position: absolute;
+            	left: 0;
+            	top: 0;
+            	bottom: 0;
+            	height: 32px;
+            	line-height: 32px;
+            	;
+            	font-size: 12px;
+            }
+            .section>select,  .section>input {
+            	width: 100%;
+            	height: 100%;
+            	display: block;
+            	padding: 0 10px;
+            	box-sizing: border-box;
+            }
+        /**/
+</style>
+    </head>
+    <body>
+       <div class="section">
+          <label>日期控件</label>
+          开始：<input type="text" id="demo_date"  />
+          结束：<input type="text" id="demo_date2" />
+        </div>
+    <script>
+        var theme = "ios";
+        var mode = "scroller";
+        var display = "bottom";
+        var lang="zh";
+        var end ='';
+        var start ='';
+        //开始
+        $('#demo_date').mobiscroll().date({
+            theme: theme,
+            mode: mode,
+            display: display,
+            minDate: new Date(2000,3,10,9,22),
+            maxDate: new Date(2030,7,30,15,44),
+            dateFormat:"yyyy-mm-dd",
+            lang: lang
+        });
+     
+        //初始化默认时间 
+           // 开始
+        $('#demo_date')[0].value = "初始化开始时间"
+           // 结束
+        $('#demo_date2')[0].value = "初始化结束时间"
+
+        // 开始发生变化
+        $('#demo_date').change(function(){
+             start = $(this)[0].value
+             if(end != ''){
+                if(end < start){
+                    $(this)[0].value = ''
+                    start = $(this)[0].value
+                    alert("不能大于结束时间")
+                }
+             }
+        })
+        // 结束发生变化
+         $('#demo_date2').change(function(){
+              end = $(this)[0].value
+              if(start != ''){
+                if(start > end){
+                    $(this)[0].value = ''
+                    end =  $(this)[0].value
+                    alert("不能大于结束时间")
+                }
+             }
+        })
+  
+        // 结束
+         $('#demo_date2').mobiscroll().date({
+            theme: theme,
+            mode: mode,
+            display: display,
+            minDate: new Date(2000,3,10,9,22),
+            maxDate: new Date(2030,7,30,15,44),
+            dateFormat:"yyyy-mm-dd",
+            lang: lang
+        });
+    </script>
+</body>
+</html>
